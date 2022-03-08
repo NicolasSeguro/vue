@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <!-- VUE CDN -->
+     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+
+    <title>Clase 1</title>
+</head>
+<body>
+    <div id="app">
+        <!-- Directivas -->
+        <!-- v-text permite hacer un trabajo similar a la interpolación. La interpolación renderiza un fragmento de texto y la directiva v-text renderiza todo el contenido -->
+        <p v-text="text"></p>
+
+        <!-- v-html permite imprimir codigo HTML, es el equivalente al innerHTML de JS -->
+        <ul v-html="items"></ul>
+
+        <!-- v-bind permite unir algun valor de nuestro data a un atributo -->
+        <img v-bind:src="photoUrl" :alt="alt">
+
+        <!-- v-bind dinamico -->
+        <img :src="photoUrl" v-bind:[key]="alt">
+
+        <!-- v-bind sirve para cualquier atributo, por ejemplo style o class -->
+        <p :style="myStyle">Actualizo mi color</p>
+
+        <!-- Methods y on click -->
+        <button type="button" v-on:click="saludar">
+            Mostrar saludo
+        </button>
+        <!-- on click accediendo a la información del evento -->
+        <button type="button" v-on:click="saludarDos($event)">
+            Mostrar saludoDos
+        </button>
+
+        <!-- Acceder a data desde los methods -->
+        <button type="button" v-on:click="showName">
+            Mostrar nombre
+        </button>
+
+
+        <!-- propiedades computadas -->
+        <div class="content">
+            {{ nombreCompleto }}
+        </div>
+
+        <br>
+        <button @click="counter -= 1">Restar</button>
+        <button @click="counter += 1">Sumar</button>
+        <p>Se ha hecho clic en el botón y el contador cuenta {{ counter }} veces.</p>
+
+
+    </div>
+
+    <script>
+        // instanciar VUE
+        const app = new Vue({
+            el: '#app',
+            data: {
+                text: 'Clase 1',
+                items: '<li>Mis servicios</li>',
+                photoUrl: 'https://www.placecage.com/200/300',
+                alt: 'Nicolas Cage',
+                key: 'title',
+                myStyle: 'color: green',
+                firstName: 'Niki',
+                lastName: 'Nudes',
+                counter: 0
+            },
+            methods: {
+                saludar() {
+                    alert('Hola');
+                },
+                saludarDos(event) {
+                    alert('Coordenadas del botón' + event.screenX + ' ' + event.screenY);
+                },
+                showName() {
+                    alert(this.firstName + ' ' + this.lastName); 
+                }
+            },
+            computed: {
+                nombreCompleto() {
+                    return this.firstName + ' ' + this.lastName;
+                }
+            }
+
+        })
+    </script>
+
+
+</body>
+</html>

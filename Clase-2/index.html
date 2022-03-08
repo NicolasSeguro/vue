@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+     <!-- VUE CDN -->
+     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+            <!-- v-for / for of -->
+        <ul>
+            <li v-for="fruta of frutas">
+                {{fruta}}
+            </li>
+        </ul>
+
+        <ol>
+            <li v-for="curso of cursos">
+                {{curso.nombre}} - {{curso.precio}}
+                <!-- v-if-->
+                <span v-if="curso.disponible === false">
+                    - No hay vacantes
+                </span>
+                <span v-else> 
+                    - Todavia hay lugar
+                </span>
+            </li>
+        </ol>
+
+        <!-- v-model nos permite conectar directamente nuestro HTML al JS -->
+        <input type="text" v-model="nuevosCursos" 
+        @keyup.enter="agregarCurso">
+        <button @click="agregarCurso">Agregar curso</button>
+    </div>
+
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                frutas: ['Manzana', 'Banana', 'Naranja'],
+                cursos: [
+                {nombre: 'Desarrollo web', precio: 10000, disponible: true},
+                {nombre: 'Marketing', precio: 10000, disponible: false},
+                {nombre: 'React Native', precio: 10000, disponible: true}
+            ],
+            nuevosCursos: '',
+            },
+            methods: {
+                agregarCurso () {
+                    // acceder a toda la instancia
+                    this.cursos.push({
+                        nombre: this.nuevosCursos,
+                        precio: 20000,
+                        disponible: true
+                    });
+                    this.nuevosCursos= '';
+                }
+            }
+        })
+
+
+
+
+
+
+
+
+    </script>
+    
+
+
+</body>
+</html>
